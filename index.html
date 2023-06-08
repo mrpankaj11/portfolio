@@ -49,9 +49,11 @@
         <img src="./assets/img/Snapchat-1496361085.jpg" alt="" class="img-fluid rounded-circle">
         <h1 class="text-light"><a href="index.html">Pankaj</a></h1>
         <div class="social-links mt-3 text-center">
-          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://www.facebook.com/facebook/" target="_blank" facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="https://business.instagram.com/getting-started?locale=en_GB" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/linkedin" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://twitter.com/" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href=https://www.skype.com/en/ class="skype"><i class="bx bxl-skype"></i></a>
         </div>
       </div>
 
@@ -63,6 +65,7 @@
           <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
           <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
           <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+          <li><a href="login.html" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Logout</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
     </div>
@@ -545,26 +548,30 @@
                   <input type="text" name="name" class="form-control" id="name" required>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="name">Your Email</label>
+                  <label for="email">Your Email</label>
                   <input type="email" class="form-control" name="email" id="email" required>
                 </div>
               </div>
               <div class="form-group">
-                <label for="name">Subject</label>
+                <label for="subject">Subject</label>
                 <input type="text" class="form-control" name="subject" id="subject" required>
               </div>
               <div class="form-group">
-                <label for="name">Message</label>
+                <label for="message">Message</label>
                 <textarea class="form-control" name="message" rows="10" required></textarea>
               </div>
               <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+                <div class="loading" style="display: none;">Loading</div>
+                <div class="error-message" style="display: none;"></div>
+                <div class="sent-message" style="display: none;">Your message has been sent. Thank you!</div>
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <div class="text-center">
+                <button type="submit">Send Message</button>
+              </div>
             </form>
           </div>
+        
+      
         </div>
       </div>
     </section><!-- End Contact Section -->
@@ -581,7 +588,7 @@
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designed by <a href="https://bootstrapmade.com/">Pankaj Developer</a>
       </div>
     </div>
   </footer><!-- End  Footer -->
@@ -597,9 +604,47 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    var form = document.querySelector('.php-email-form');
+    var loadingElement = form.querySelector('.loading');
+    var errorElement = form.querySelector('.error-message');
+    var successElement = form.querySelector('.sent-message');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var formData = new FormData(form);
+
+      loadingElement.style.display = 'block';
+      errorElement.style.display = 'none';
+      successElement.style.display = 'none';
+
+      fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: formData
+      })
+      .then(function (response) {
+        loadingElement.style.display = 'none';
+
+        if (response.ok) {
+          successElement.style.display = 'block';
+          form.reset();
+        } else {
+          errorElement.style.display = 'block';
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    });
+  </script>
 </body>
 </html>
